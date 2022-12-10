@@ -40,6 +40,10 @@ let wall2deskCode = false;
 let wall1deskCode = false;
 let otherdeskCode = false;
 let other2Code = false;
+let binary1 = false;
+let binary2 = false;
+let binary3 = false;
+let binaryKey = false;
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -227,6 +231,7 @@ function draw() {
       );
     }
     if (start2) {
+      //rect(400, 350, 600, 200);
       text(
         "You're a natural! All text and dailogue will appear in a box like this. In some cases you can type to interact with the world and it will appear here. Please type Hello then hit enter: " +
           contents,
@@ -237,6 +242,8 @@ function draw() {
       );
     }
     if (start3) {
+      fill(0);
+      //rect(400, 350, 600, 200);
       text(
         "Great! There will be Blue Arrows to click on to move around the office. You will also need to click around to interact with objects. To start the game try clicking on the computer monitor. Good luck and have fun",
         400,
@@ -244,6 +251,8 @@ function draw() {
         600,
         200
       );
+      fill(255);
+      //rect(400, 350, 600, 200);
     }
   }
 
@@ -327,6 +336,44 @@ let other2Code
     );
   }
 
+  if (binary1) {
+    fill(255);
+    rect(400, 350, 600, 200);
+    fill(0);
+    textSize(30);
+    text("Digit 1: 01000100", 400, 350, 600, 200);
+  }
+
+  if (binary2) {
+    fill(255);
+    rect(400, 350, 600, 200);
+    fill(0);
+    textSize(30);
+    text("Digit 2: 01000110", 400, 350, 600, 200);
+  }
+
+  if (binary3) {
+    fill(255);
+    rect(400, 350, 600, 200);
+    fill(0);
+    textSize(30);
+    text("Digit 3: 01010011", 400, 350, 600, 200);
+  }
+
+  if (binaryKey) {
+    fill(255);
+    rect(400, 350, 600, 200);
+    fill(0);
+    textSize(23);
+    text(
+      "A:01000001 B:01000010 C:01000011 D:01000100 E:01000101 F:01000110 G:01000111 H:01001000 I:01001001 J:01001010 K:01001011 L:01001100 M:01001101 N:01001110 O:01001111 P:01010000 Q:01010001 R:01010010 S:01010011 T:01010100 U:01010101 V:01010110 W:01010111 X:01011000 Y:01011001 Z:01011010",
+      400,
+      350,
+      600,
+      200
+    );
+  }
+
   if (current.left != null) {
     if (mouseInTriangle(20, 350, 70, 250, 70, 450)) {
       fill(255);
@@ -376,11 +423,15 @@ function mousePressed() {
   wall1deskCode = false;
   otherdeskCode = false;
   other2Code = false;
+  binary1 = false;
+  binary2 = false;
+  binary3 = false;
+  binaryKey = false;
 
   if (current == start && inArea(625, 835, 130, 250)) {
     testtext = true;
   }
-  if (current == intro && inArea(400, 1000, 350, 450)) {
+  if (current == intro && inArea(400, 1000, 350, 550)) {
     starting = false;
     start2 = true;
   }
@@ -408,6 +459,18 @@ function mousePressed() {
   }
   if (current == oppoDesk && inArea(780, 970, 220, 325)) {
     other2Code = true;
+  }
+  if (current == right1 && inArea(1200, 1500, 290, 400)) {
+    binary1 = true;
+  }
+  if (current == cabinet1 && inArea(215, 955, 200, 690)) {
+    binary2 = true;
+  }
+  if (current == printer && inArea(562, 683, 437, 537)) {
+    binary3 = true;
+  }
+  if (current == right2 && inArea(780, 840, 222, 240)) {
+    binaryKey = true;
   }
 
   if (current.left != null) {
