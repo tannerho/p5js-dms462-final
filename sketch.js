@@ -44,6 +44,9 @@ let binary1 = false;
 let binary2 = false;
 let binary3 = false;
 let binaryKey = false;
+let strings=["The work week was long."," Your coworkers have all left."," The boss said your report was due by end of the week."," It is the end of week."," BLah blah blah add more here later"];
+let stringsInt=0;
+let currentString="";
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -74,10 +77,10 @@ function preload() {
 
 function setup() {
   createCanvas(1500, 700);
-  createStory();
-  current = intro;
   testtext = false;
   starting = true;
+  createStory();
+  current = newMaybe;
 }
 
 function getArea(a, b, c) {
@@ -217,10 +220,22 @@ function maps(dotx, doty) {
 function draw() {
   background(current.backImage);
   maps(current.dotx, current.doty);
-
+  if(current ==newMaybe){
+    textSize(30);
+    fill(255);
+    text(
+        currentString,
+        40,
+        35,
+        900,
+        200
+      );
+  }
   if (current == intro) {
+    fill(255);
     rect(400, 350, 600, 200);
     textSize(30);
+    fill(0);
     if (starting) {
       text(
         "Welcome to our game demo. This is a point and click style adventure where you work in an office trying to finish a project while everyone has already left. Try clicking in his box to continue. :D",
@@ -284,35 +299,35 @@ let other2Code
     rect(400, 350, 600, 200);
     fill(0);
     textSize(30);
-    text("19-9-15", 400, 350, 600, 200);
+    text("that new guy is terrible, why is he even here", 400, 350, 600, 200);
   }
   if (left1deskCode) {
     fill(255);
     rect(400, 350, 600, 200);
     fill(0);
     textSize(30);
-    text("12-25-_", 400, 350, 600, 200);
+    text("3", 400, 350, 600, 200);
   }
   if (wall2deskCode) {
     fill(255);
     rect(400, 350, 600, 200);
     fill(0);
     textSize(30);
-    text("21-_", 400, 350, 600, 200);
+    text("6-15", 400, 350, 600, 200);
   }
   if (otherdeskCode) {
     fill(255);
     rect(400, 350, 600, 200);
     fill(0);
     textSize(30);
-    text("3-6-15", 400, 350, 600, 200);
+    text("12", 400, 350, 600, 200);
   }
   if (other2Code) {
     fill(255);
     rect(400, 350, 600, 200);
     fill(0);
     textSize(30);
-    text("12-25", 400, 350, 600, 200);
+    text("15", 400, 350, 600, 200);
   }
   if (wall1deskCode) {
     fill(255);
@@ -328,7 +343,7 @@ let other2Code
     fill(0);
     textSize(30);
     text(
-      "Take the Numbers from the computers in the office and convert them to letters and unscramble the words to find your password. F=26 G=1 H=2 an underscore is a space",
+      "Take the Numbers from the computers in the office and convert them to letters and unscramble the word to find your password. F=26 G=1 H=2",
       400,
       350,
       600,
@@ -428,6 +443,15 @@ function mousePressed() {
   binary3 = false;
   binaryKey = false;
 
+  
+  if(current==newMaybe){
+    if(stringsInt>=strings.length){
+      starting = true;
+      current=intro;
+    }
+    currentString+= strings[stringsInt];
+    stringsInt++;
+  }
   if (current == start && inArea(625, 835, 130, 250)) {
     testtext = true;
   }
@@ -460,10 +484,10 @@ function mousePressed() {
   if (current == oppoDesk && inArea(780, 970, 220, 325)) {
     other2Code = true;
   }
-  if (current == right1 && inArea(1200, 1500, 290, 400)) {
+  if (current == shelf1 && inArea(480, 855, 440, 560)) {
     binary1 = true;
   }
-  if (current == cabinet1 && inArea(215, 955, 200, 690)) {
+  if (current == cabinet1 && inArea(215, 955, 200, 590)) {
     binary2 = true;
   }
   if (current == printer && inArea(562, 683, 437, 537)) {
@@ -472,6 +496,13 @@ function mousePressed() {
   if (current == right2 && inArea(780, 840, 222, 240)) {
     binaryKey = true;
   }
+  
+  
+  //clipboard count
+  //wall desk=(1350,300),(1500,360)
+  //shelf 2 =x;570-415,y;-505-415
+  //oppoDesk=x;640-720,y;365-425
+  //bossDesk=x;985-1095,y;255-325
 
   if (current.left != null) {
     if (mouseInTriangle(20, 350, 70, 250, 70, 450)) {
@@ -513,7 +544,7 @@ function keyReleased() {
       }
     }
     if (testtext) {
-      if (entered == "youre a failure") {
+      if (entered == "failure") {
         testtext = false;
         login = true;
       }
@@ -534,6 +565,7 @@ class Scene {
 }
 //start,left1,right1,shelf1,cabinet1,left2,leftDesk,left2Desks,wallDesks,clock,bossCorner,cabinet2,shelf2,bossDesk,loungeCorner,otherside1,othersideDesk,coffeeTable,lounge,door,printer,oppoDesk,otherside2,right2;
 function createStory() {
+  newMaybe= new Scene(51,null, null, null, null, null, null)
   intro = new Scene(image7, null, null, null, null, null, null);
   start = new Scene(image7, "left1", "right1", null, null, 240, 137);
   right1 = new Scene(image9, "right2", "shelf1", null, "start", 240, 137);
