@@ -40,13 +40,34 @@ let wall2deskCode = false;
 let wall1deskCode = false;
 let otherdeskCode = false;
 let other2Code = false;
-let binary1 = false;
-let binary2 = false;
-let binary3 = false;
 let binaryKey = false;
-let strings=["The work week was long."," Your coworkers have all left."," The boss said your report was due by end of the week."," It is the end of week."," BLah blah blah add more here later"];
-let stringsInt=0;
-let currentString="";
+let strings = [
+  "The work week was long.",
+  " Your coworkers have all left.",
+  " The boss said your report was due by end of the week.",
+  " It is the end of week.",
+  " BLah blah blah add more here later",
+];
+let stringsInt = 0;
+let currentString = "";
+let hexKey = false;
+
+let login026 = false;
+let login050 = false;
+let login087 = false;
+let login131 = false;
+let login209 = false;
+let login259 = false;
+
+let clipWallDesk = false;
+let clipShelf2 = false;
+let clipOppo = false;
+
+let errorColor = false;
+let errorNumber = false;
+let errorLetter = false;
+let errorMess = false;
+let errorText = "";
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -216,20 +237,20 @@ function maps(dotx, doty) {
     strokeWeight(1);
   }
 }
+function setText() {
+  fill(255);
+  rect(400, 350, 600, 200);
+  fill(0);
+  textSize(30);
+}
 
 function draw() {
   background(current.backImage);
   maps(current.dotx, current.doty);
-  if(current ==newMaybe){
+  if (current == newMaybe) {
     textSize(30);
     fill(255);
-    text(
-        currentString,
-        40,
-        35,
-        900,
-        200
-      );
+    text(currentString, 40, 35, 900, 200);
   }
   if (current == intro) {
     fill(255);
@@ -272,107 +293,98 @@ function draw() {
   }
 
   if (testtext && !login) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("Please Enter Password:", 400, 350, 600, 200);
+    setText();
+    text("Employee 261, Please Enter Password:", 400, 350, 600, 200);
     text(contents, 400, 400, 600, 200);
   }
   if (login) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("Nice thats the demo :D", 400, 350, 600, 200);
+    setText();
+    text("Login Success", 400, 350, 600, 200);
+    text("Machine Error Code Blue1A Please Fix", 400, 400, 600, 200);
+    text(contents, 400, 450, 600, 200);
   }
-  /*
-  let left2deskCode = false; im
-  left1deskCode po
-let wall2deskCode = false; s
-let wall1deskCode = false;t
-let otherdeskCode = false;
-let other2Code 
-  */
-  if (left2deskCode) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("that new guy is terrible, why is he even here", 400, 350, 600, 200);
+  if (left2deskCode && !login209) {
+    setText();
+    text("Employee 209, Please Enter Password:", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
   }
-  if (left1deskCode) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("3", 400, 350, 600, 200);
-  }
-  if (wall2deskCode) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("6-15", 400, 350, 600, 200);
-  }
-  if (otherdeskCode) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("12", 400, 350, 600, 200);
-  }
-  if (other2Code) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("15", 400, 350, 600, 200);
-  }
-  if (wall1deskCode) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("26-21", 400, 350, 600, 200);
-  }
-
-  if (bossMessage) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
+  if (login209) {
+    setText();
     text(
-      "Take the Numbers from the computers in the office and convert them to letters and unscramble the word to find your password. F=26 G=1 H=2",
+      "the new employee 261 is terrible. they don't even know Binary Code 1  Digit 1: 01000100",
       400,
       350,
       600,
       200
     );
   }
-
-  if (binary1) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("Digit 1: 01000100", 400, 350, 600, 200);
+  if (left1deskCode && !login087) {
+    setText();
+    text("Employee 087, Please Enter Password:", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (login087) {
+    setText();
+    text("blah blah flavor text Insert Hex code 2 here", 400, 350, 600, 200);
+  }
+  if (wall2deskCode && !login131) {
+    setText();
+    text("Employee 131, Please Enter Password:", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (login131) {
+    setText();
+    text("blah blah flavor text Insert Hex code 1 here", 400, 350, 600, 200);
+  }
+  if (otherdeskCode && !login050) {
+    setText();
+    text("Employee 050, Please Enter Password:", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (login050) {
+    setText();
+    text(
+      "blah blah flavor text Insert binary Digit 2: 01000110",
+      400,
+      350,
+      600,
+      200
+    );
+  }
+  if (other2Code && !login259) {
+    setText();
+    text("Employee 259, Please Enter Password:", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (login259) {
+    setText();
+    text(
+      "blah blah flavor text Insert binary Digit 3: 01010011",
+      400,
+      350,
+      600,
+      200
+    );
+  }
+  if (wall1deskCode && !login026) {
+    setText();
+    text("Employee 026, Please Enter Password:", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (login026) {
+    setText();
+    text("blah blah flavor text Insert hex 3 here", 400, 350, 600, 200);
   }
 
-  if (binary2) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("Digit 2: 01000110", 400, 350, 600, 200);
-  }
-
-  if (binary3) {
-    fill(255);
-    rect(400, 350, 600, 200);
-    fill(0);
-    textSize(30);
-    text("Digit 3: 01010011", 400, 350, 600, 200);
+  if (bossMessage) {
+    setText();
+    text(
+      "Employee Encrypted Codes: 026-a=16,b=17  050-a=e,b=f  087-a=8,b=9  131-a=m,b=n  209-a=r,b=s  259-a=v,b=w  261-a=21,b=22",
+      400,
+      350,
+      600,
+      200
+    );
   }
 
   if (binaryKey) {
@@ -387,6 +399,49 @@ let other2Code
       600,
       200
     );
+  }
+  if (hexKey) {
+    setText();
+    text("insert hex converstion chart here", 400, 350, 600, 200);
+  }
+
+  if (clipWallDesk) {
+    setText();
+    text("026 code: 22-7-16-19-20   050 code: gvyqf", 400, 350, 600, 200);
+  }
+  if (clipShelf2) {
+    setText();
+    text("087 code: 23-25-12-26-26   131 code: oayyqzf", 400, 350, 600, 200);
+  }
+  if (clipOppo) {
+    setText();
+    text(
+      "209 code: wziv   259 code: wvb   261 code: 26-21-3-6-15-12-25",
+      400,
+      350,
+      600,
+      200
+    );
+  }
+
+  if (errorColor) {
+    setText();
+    text("what color error do you have", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (errorNumber) {
+    setText();
+    text("what number error do you have", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (errorLetter) {
+    setText();
+    text("what letter error do you have", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (errorMess) {
+    setText();
+    text(errorText, 400, 350, 600, 200);
   }
 
   if (current.left != null) {
@@ -438,18 +493,33 @@ function mousePressed() {
   wall1deskCode = false;
   otherdeskCode = false;
   other2Code = false;
-  binary1 = false;
-  binary2 = false;
-  binary3 = false;
   binaryKey = false;
+  hexKey = false;
 
-  
-  if(current==newMaybe){
-    if(stringsInt>=strings.length){
+  login026 = false;
+  login050 = false;
+  login087 = false;
+  login131 = false;
+  login209 = false;
+  login259 = false;
+
+  clipWallDesk = false;
+  clipShelf2 = false;
+  clipOppo = false;
+  clipBoss = false;
+
+  errorColor = false;
+  errorNumber = false;
+  errorLetter = false;
+  errorMess = false;
+  errorText = "";
+
+  if (current == newMaybe) {
+    if (stringsInt >= strings.length) {
       starting = true;
-      current=intro;
+      current = intro;
     }
-    currentString+= strings[stringsInt];
+    currentString += strings[stringsInt];
     stringsInt++;
   }
   if (current == start && inArea(625, 835, 130, 250)) {
@@ -463,6 +533,7 @@ function mousePressed() {
     start3 = false;
     current = start;
   }
+
   if (current == bossDesk && inArea(560, 735, 95, 235)) {
     bossMessage = true;
   }
@@ -484,25 +555,40 @@ function mousePressed() {
   if (current == oppoDesk && inArea(780, 970, 220, 325)) {
     other2Code = true;
   }
+  /* 
   if (current == shelf1 && inArea(480, 855, 440, 560)) {
     binary1 = true;
   }
-  if (current == cabinet1 && inArea(215, 955, 200, 590)) {
-    binary2 = true;
-  }
+  */
   if (current == printer && inArea(562, 683, 437, 537)) {
-    binary3 = true;
-  }
-  if (current == right2 && inArea(780, 840, 222, 240)) {
     binaryKey = true;
   }
-  
-  
-  //clipboard count
-  //wall desk=(1350,300),(1500,360)
-  //shelf 2 =x;570-415,y;-505-415
-  //oppoDesk=x;640-720,y;365-425
-  //bossDesk=x;985-1095,y;255-325
+  if (current == right2 && inArea(780, 840, 222, 240)) {
+    hexKey = true;
+  }
+
+  if (current == wallDesks && inArea(1365, 1500, 300, 355)) {
+    clipWallDesk = true;
+  }
+  if (current == shelf2 && inArea(420, 550, 425, 490)) {
+    clipShelf2 = true;
+  }
+  if (current == bossDesk && inArea(990, 1090, 260, 325)) {
+    clipBoss = true;
+  }
+  if (current == oppoDesk && inArea(635, 725, 360, 430)) {
+    clipOppo = true;
+  }
+
+  if (current == cabinet2 && inArea(480, 1080, 160, 575)) {
+    errorNumber = true;
+  }
+  if (current == cabinet1 && inArea(215, 955, 200, 590)) {
+    errorColor = true;
+  }
+  if (current == printer && inArea(970, 1400, 190, 660)) {
+    errorLetter = true;
+  }
 
   if (current.left != null) {
     if (mouseInTriangle(20, 350, 70, 250, 70, 450)) {
@@ -549,6 +635,65 @@ function keyReleased() {
         login = true;
       }
     }
+    if (!intro) {
+      if (entered == "HELP") {
+      }
+      //make a screen for hints?
+    }
+    if (left2deskCode && entered == "fire") {
+      login209 = true;
+    }
+    if (left1deskCode && entered == "press") {
+      login087 = true;
+    }
+    if (wall2deskCode && entered == "comment") {
+      login131 = true;
+    }
+    if (wall1deskCode && entered == "grade") {
+      login026 = true;
+    }
+    if (otherdeskCode && entered == "crumb") {
+      login050 = true;
+    }
+    if (other2Code && entered == "bag") {
+      login259 = true;
+    }
+    if (errorColor) {
+      if (entered == "Blue" || entered == "blue") {
+        errorMess = true;
+        errorText = "Coffee";
+        errorColor = false;
+      }
+      if (entered == "Red" || entered == "red") {
+        errorMess = true;
+        errorText = "Plants";
+        errorColor = false;
+      }
+    }
+    if (errorNumber) {
+      if (entered == "1") {
+        errorMess = true;
+        errorText = "Employee #";
+        errorNumber = false;
+      }
+      if (entered == "2") {
+        errorMess = true;
+        errorText = "Binary digit 1";
+        errorNumber = false;
+      }
+    }
+    if (errorLetter) {
+      if (entered == "A" || entered == "a") {
+        errorMess = true;
+        errorText = "Red+B";
+        errorLetter = false;
+      }
+      if (entered == "B" || entered == "b") {
+        errorMess = true;
+        errorText = "Hour";
+        errorLetter = false;
+      }
+    }
   }
 }
 class Scene {
@@ -565,7 +710,7 @@ class Scene {
 }
 //start,left1,right1,shelf1,cabinet1,left2,leftDesk,left2Desks,wallDesks,clock,bossCorner,cabinet2,shelf2,bossDesk,loungeCorner,otherside1,othersideDesk,coffeeTable,lounge,door,printer,oppoDesk,otherside2,right2;
 function createStory() {
-  newMaybe= new Scene(51,null, null, null, null, null, null)
+  newMaybe = new Scene(51, null, null, null, null, null, null);
   intro = new Scene(image7, null, null, null, null, null, null);
   start = new Scene(image7, "left1", "right1", null, null, 240, 137);
   right1 = new Scene(image9, "right2", "shelf1", null, "start", 240, 137);
