@@ -46,7 +46,12 @@ let strings = [
   " Your coworkers have all left.",
   " The boss said your report was due by end of the week.",
   " It is the end of week.",
-  " BLah blah blah add more here later",
+  " You were recently hired here and still have no idea what is going on.",
+  " You can barely even remember your password half the time.",
+  " You need to search around the office to figure out your work before you leave.",
+  " People leave notes on clip boards and in the cabinets from what you've seen.",
+  " That'd be a good place to start.",
+  " Try and not get fired this time.",
 ];
 let stringsInt = 0;
 let currentString = "";
@@ -68,6 +73,11 @@ let errorNumber = false;
 let errorLetter = false;
 let errorMess = false;
 let errorText = "";
+let doorText = false;
+let error1 = false;
+let error2 = false;
+let error3 = false;
+let can = false;
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -250,7 +260,7 @@ function draw() {
   if (current == newMaybe) {
     textSize(30);
     fill(255);
-    text(currentString, 40, 35, 900, 200);
+    text(currentString, 40, 35, 900, 700);
   }
   if (current == intro) {
     fill(255);
@@ -259,7 +269,7 @@ function draw() {
     fill(0);
     if (starting) {
       text(
-        "Welcome to our game demo. This is a point and click style adventure where you work in an office trying to finish a project while everyone has already left. Try clicking in his box to continue. :D",
+        "This is a point and click style adventure where you work in an office trying to finish a project while everyone has already left. Try clicking in his box to continue.",
         400,
         350,
         600,
@@ -269,7 +279,7 @@ function draw() {
     if (start2) {
       //rect(400, 350, 600, 200);
       text(
-        "You're a natural! All text and dailogue will appear in a box like this. In some cases you can type to interact with the world and it will appear here. Please type Hello then hit enter: " +
+        "Great! All text and dailogue will appear in a box like this. In some cases you can type to interact with the world and it will appear here. Please type Hello then hit enter: " +
           contents,
         400,
         350,
@@ -281,7 +291,7 @@ function draw() {
       fill(0);
       //rect(400, 350, 600, 200);
       text(
-        "Great! There will be Blue Arrows to click on to move around the office. You will also need to click around to interact with objects. To start the game try clicking on the computer monitor. Good luck and have fun",
+        "Great! There will be Blue Arrows to click on to move around the office. You will also need to click around to interact with objects. To start the game click on the computer monitor. Your first task is to login",
         400,
         350,
         600,
@@ -303,6 +313,30 @@ function draw() {
     text("Machine Error Code Blue1A Please Fix", 400, 400, 600, 200);
     text(contents, 400, 450, 600, 200);
   }
+  if (error1) {
+    setText();
+    text("Error 1 Resolved", 400, 350, 600, 200);
+    text("Machine Error Code Yellow2F Please Fix", 400, 400, 600, 200);
+    text(contents, 400, 450, 600, 200);
+  }
+  if (error2) {
+    setText();
+    text("Error 2 Resolved", 400, 350, 600, 200);
+    text("Machine Error Code Green9T Please Fix", 400, 400, 600, 200);
+    text(contents, 400, 450, 600, 200);
+  }
+  if (error3) {
+    setText();
+    text("Error 3 Resolved: All Errors Resolved", 400, 350, 600, 200);
+    text(
+      "Attention Employee 261 you have taken to long to resolve all issues. Please vacate the building immedietaly and await further contant. Goodbye",
+      400,
+      400,
+      600,
+      200
+    );
+  }
+
   if (left2deskCode && !login209) {
     setText();
     text("Employee 209, Please Enter Password:", 400, 350, 600, 200);
@@ -311,7 +345,7 @@ function draw() {
   if (login209) {
     setText();
     text(
-      "the new employee 261 is terrible. they don't even know Binary Code 1  Digit 1: 01000100",
+      "The new employee 261 is terrible. They don't even know Binary Code 1  Digit 1: 01000100",
       400,
       350,
       600,
@@ -426,22 +460,31 @@ function draw() {
 
   if (errorColor) {
     setText();
-    text("what color error do you have", 400, 350, 600, 200);
+    text("What color error do you have?", 400, 350, 600, 200);
     text(contents, 400, 400, 600, 200);
   }
   if (errorNumber) {
     setText();
-    text("what number error do you have", 400, 350, 600, 200);
+    text("What number error do you have?", 400, 350, 600, 200);
     text(contents, 400, 400, 600, 200);
   }
   if (errorLetter) {
     setText();
-    text("what letter error do you have", 400, 350, 600, 200);
+    text("What letter error do you have?", 400, 350, 600, 200);
     text(contents, 400, 400, 600, 200);
   }
   if (errorMess) {
     setText();
     text(errorText, 400, 350, 600, 200);
+  }
+
+  if (doorText) {
+    setText();
+    text("Doors", 400, 350, 600, 200);
+  }
+  if (can) {
+    setText();
+    text("Can", 400, 350, 600, 200);
   }
 
   if (current.left != null) {
@@ -514,6 +557,12 @@ function mousePressed() {
   errorMess = false;
   errorText = "";
 
+  error1 = false;
+  error2 = false;
+  error3 = false;
+  doorText = false;
+  can = false;
+
   if (current == newMaybe) {
     if (stringsInt >= strings.length) {
       starting = true;
@@ -555,11 +604,6 @@ function mousePressed() {
   if (current == oppoDesk && inArea(780, 970, 220, 325)) {
     other2Code = true;
   }
-  /* 
-  if (current == shelf1 && inArea(480, 855, 440, 560)) {
-    binary1 = true;
-  }
-  */
   if (current == printer && inArea(562, 683, 437, 537)) {
     binaryKey = true;
   }
@@ -588,6 +632,15 @@ function mousePressed() {
   }
   if (current == printer && inArea(970, 1400, 190, 660)) {
     errorLetter = true;
+  }
+  if (current == doors && inArea(575, 850, 100, 370)) {
+    doorText = true;
+  }
+  if (current == cabinet2 && inArea(1250, 1425, 90, 700)) {
+    doorText = true;
+  }
+  if (current == bossDesk && inArea(300, 520, 580, 700)) {
+    can = true;
   }
 
   if (current.left != null) {
@@ -635,6 +688,19 @@ function keyReleased() {
         login = true;
       }
     }
+    if (login && entered == "626110") {
+      login = false;
+      error1 = true;
+    }
+    if (error1 && entered == "TESTVAL1") {
+      error1 = false;
+      error2 = true;
+    }
+    if (error2 && entered == "TESTVAL2") {
+      error2 = false;
+      error3 = true;
+    }
+
     if (!intro) {
       if (entered == "HELP") {
       }
@@ -660,37 +726,91 @@ function keyReleased() {
     }
     if (errorColor) {
       if (entered == "Blue" || entered == "blue") {
+        //6
         errorMess = true;
-        errorText = "Coffee";
+        errorText = "Coffee Cups Number";
         errorColor = false;
       }
       if (entered == "Red" || entered == "red") {
+        //22
         errorMess = true;
-        errorText = "Plants";
+        errorText = "Potted Plants Number";
+        errorColor = false;
+      }
+      if (entered == "Yellow" || entered == "yellow") {
+        //8
+        errorMess = true;
+        errorText = "Black Binders Number";
+        errorColor = false;
+      }
+      if (entered == "Green" || entered == "green") {
+        //30
+        errorMess = true;
+        errorText = "Error Yellow + Error Red";
+        errorColor = false;
+      }
+      if (entered == "Purple" || entered == "purple") {
+        //7
+        errorMess = true;
+        errorText = "Red Binders Number";
         errorColor = false;
       }
     }
     if (errorNumber) {
       if (entered == "1") {
+        //261
         errorMess = true;
         errorText = "Employee #";
         errorNumber = false;
       }
       if (entered == "2") {
+        //??
         errorMess = true;
         errorText = "Binary digit 1";
+        errorNumber = false;
+      }
+      if (entered == "4") {
+        //??
+        errorMess = true;
+        errorText = "Hex digit 2";
+        errorNumber = false;
+      }
+      if (entered == "9") {
+        //??
+        errorMess = true;
+        errorText = "Hex digit 1 and 3";
         errorNumber = false;
       }
     }
     if (errorLetter) {
       if (entered == "A" || entered == "a") {
+        //10
         errorMess = true;
-        errorText = "Red+B";
+        errorText = "Hour";
         errorLetter = false;
       }
       if (entered == "B" || entered == "b") {
+        //11
         errorMess = true;
-        errorText = "Hour";
+        errorText = "Minute";
+        errorLetter = false;
+      }
+      if (entered == "F" || entered == "f") {
+        //??
+        errorMess = true;
+        errorText = "Hex 2";
+        errorLetter = false;
+      }
+      if (entered == "M" || entered == "m") {
+        //??
+        errorMess = true;
+        errorText = "Binary 2 and 3";
+        errorLetter = false;
+      }
+      if (entered == "T" || entered == "t") {
+        //77
+        errorMess = true;
+        errorText = "Error B * Error Purple";
         errorLetter = false;
       }
     }
