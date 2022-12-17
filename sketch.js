@@ -32,7 +32,6 @@ let entered = "";
 let starting;
 let start2;
 let start3;
-let bossMessage = false;
 let login = false;
 let left1deskCode = false;
 let left2deskCode = false;
@@ -55,24 +54,10 @@ let strings = [
 ];
 let stringsInt = 0;
 let currentString = "";
-let hexKey = false;
-
-let login026 = false;
-let login050 = false;
-let login087 = false;
-let login131 = false;
-let login209 = false;
-let login259 = false;
-
-let clipWallDesk = false;
-let clipShelf2 = false;
-let clipOppo = false;
 
 let errorColor = false;
 let errorNumber = false;
 let errorLetter = false;
-let errorMess = false;
-let errorText = "";
 let error1 = false;
 let error2 = false;
 let error3 = false;
@@ -80,10 +65,9 @@ let can = false;
 
 let foundColor = false;
 let favoriteColor = false;
-let foundColorMessage = false;
-
-let doorNoPuzzles = false;
-let doorColorDone = false;
+let basicMess = false;
+let inputMess = false;
+let basicText = "";
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -111,21 +95,18 @@ function preload() {
   image51 = loadImage("assets/otherside2.png");
   image55 = loadImage("assets/right2.png");
 }
-
 function setup() {
   createCanvas(1500, 700);
   testtext = false;
   starting = true;
   createStory();
-  current = newMaybe;
+  current = start;//newMaybe or start
 }
-
 function getArea(a, b, c) {
   return abs(
     (a[0] * (b[1] - c[1]) + b[0] * (c[1] - a[1]) + c[0] * (a[1] - b[1])) / 2
   );
 }
-//if (mouseX > 1 && mouseX < 400 && mouseY > 350 && mouseY < 400)
 function mouseInTriangle(x1, y1, x2, y2, x3, y3) {
   let point = [mouseX, mouseY];
   let area = getArea([x1, y1], [x2, y2], [x3, y3]);
@@ -134,7 +115,6 @@ function mouseInTriangle(x1, y1, x2, y2, x3, y3) {
   let areaC = getArea([x1, y1], point, [x3, y3]);
   return abs(areaA + areaB + areaC - area) < 0.001;
 }
-
 function sceneLoad(x) {
   blackout();
 
@@ -212,7 +192,6 @@ function sceneLoad(x) {
   }
   fadeIn();
 }
-
 function blackout() {
   fill(0, fade);
   rect(0, 0, width, height);
@@ -234,7 +213,6 @@ function inArea(x1, x2, y1, y2) {
   }
   return false;
 }
-
 function maps(dotx, doty) {
   if (dotx != null) {
     fill(111, 212, 251);
@@ -342,93 +320,15 @@ function draw() {
       200
     );
   }
-
-  if (left2deskCode && !login209) {
+  if (basicMess) {
     setText();
-    text("Employee 209, Please Enter Password:", 400, 350, 600, 200);
+    text(basicText, 400, 350, 600, 200);
+  }
+  if (inputMess) {
+    setText();
+    text(basicText, 400, 350, 600, 200);
     text(contents, 400, 400, 600, 200);
   }
-  if (login209) {
-    setText();
-    text(
-      "The new employee 261 is terrible. They don't even know Binary Code 1  Digit 1: 01000100",
-      400,
-      350,
-      600,
-      200
-    );
-  }
-  if (left1deskCode && !login087) {
-    setText();
-    text("Employee 087, Please Enter Password:", 400, 350, 600, 200);
-    text(contents, 400, 400, 600, 200);
-  }
-  if (login087) {
-    setText();
-    text("The green value of the boss's favorite color is equal to the number of coffee mugs in the office cubed", 400, 350, 600, 200);
-    // 6^3 = 216
-  }
-  if (wall2deskCode && !login131) {
-    setText();
-    text("Employee 131, Please Enter Password:", 400, 350, 600, 200);
-    text(contents, 400, 400, 600, 200);
-  }
-  if (login131) {
-    setText();
-    text("The red value for the boss's favorite color is the number of red chairs in the office times the number of red couches.", 400, 350, 600, 200);
-    // 5 * 2
-  }
-  if (otherdeskCode && !login050) {
-    setText();
-    text("Employee 050, Please Enter Password:", 400, 350, 600, 200);
-    text(contents, 400, 400, 600, 200);
-  }
-  if (login050) {
-    setText();
-    text(
-      "blah blah flavor text Insert binary Digit 2: 01000110",
-      400,
-      350,
-      600,
-      200
-    );
-  }
-  if (other2Code && !login259) {
-    setText();
-    text("Employee 259, Please Enter Password:", 400, 350, 600, 200);
-    text(contents, 400, 400, 600, 200);
-  }
-  if (login259) {
-    setText();
-    text(
-      "blah blah flavor text Insert binary Digit 3: 01010011",
-      400,
-      350,
-      600,
-      200
-    );
-  }
-  if (wall1deskCode && !login026) {
-    setText();
-    text("Employee 026, Please Enter Password:", 400, 350, 600, 200);
-    text(contents, 400, 400, 600, 200);
-  }
-  if (login026) {
-    setText();
-    text("In order to find the blue value of the boss's favorite color take the time and multiply the hours times the minutes: 4D", 400, 350, 600, 200);
-  }
-// 10 * 11
-  if (bossMessage) {
-    setText();
-    text(
-      "Employee Encrypted Codes: 026-a=16,b=17  050-a=e,b=f  087-a=8,b=9  131-a=m,b=n  209-a=r,b=s  259-a=v,b=w  261-a=21,b=22",
-      400,
-      350,
-      600,
-      200
-    );
-  }
-
   if (binaryKey) {
     fill(255);
     rect(400, 350, 600, 200);
@@ -436,29 +336,6 @@ function draw() {
     textSize(23);
     text(
       "A:01000001 B:01000010 C:01000011 D:01000100 E:01000101 F:01000110 G:01000111 H:01001000 I:01001001 J:01001010 K:01001011 L:01001100 M:01001101 N:01001110 O:01001111 P:01010000 Q:01010001 R:01010010 S:01010011 T:01010100 U:01010101 V:01010110 W:01010111 X:01011000 Y:01011001 Z:01011010",
-      400,
-      350,
-      600,
-      200
-    );
-  }
-  if (hexKey) {
-    setText();
-    text("Colors and their hex values: \nCopper: d86e10 \tMagenta: d8106e Green-cyan: 10d86e \nBright purple: 6e10d8 \nLime green: 6ed810", 400, 350, 600, 200);
-  }
-
-  if (clipWallDesk) {
-    setText();
-    text("026 code: 22-7-16-19-20   050 code: gvyqf", 400, 350, 600, 200);
-  }
-  if (clipShelf2) {
-    setText();
-    text("087 code: 23-25-12-26-26   131 code: oayyqzf", 400, 350, 600, 200);
-  }
-  if (clipOppo) {
-    setText();
-    text(
-      "209 code: wziv   259 code: wvb   261 code: 26-21-3-6-15-12-25",
       400,
       350,
       600,
@@ -481,34 +358,12 @@ function draw() {
     text("What letter error do you have?", 400, 350, 600, 200);
     text(contents, 400, 400, 600, 200);
   }
-  if (errorMess) {
-    setText();
-    text(errorText, 400, 350, 600, 200);
-  }
 
   if (can) {
     setText();
-    text("Can", 400, 350, 600, 200);
+    text("wow trash", 400, 350, 600, 200);
   }
 
-  if (favoriteColor) {
-    setText();
-    text("What is the boss's favorite color?\n\n", 400, 350, 600, 200);
-    text(contents, 400, 400, 600, 200);
-  }
-  if (foundColorMessage) {
-    setText();
-    text("Oh yeah that's right! I guess I don't have to worry about that anymore.", 400, 350, 600, 200);
-  }
-  if(doorNoPuzzles) {
-    setText();
-    text("I can't leave yet, I have to finish up my work and print that flyer for the boss.", 400, 350, 600, 200)
-  }
-  if(doorColorDone) {
-    setText();
-    text("I can't leave yet, I have to finish my work first", 400, 350, 600, 200)
-  }
-  
   if (current.left != null) {
     if (mouseInTriangle(20, 350, 70, 250, 70, 450)) {
       fill(255);
@@ -546,11 +401,10 @@ function draw() {
     }
   }
 }
+
 function mousePressed() {
   print("(" + mouseX + ", " + mouseY + ")");
   login = false;
-  left1deskCode = false;
-  bossMessage = false;
   testtext = false;
   left2deskCode = false;
   left1deskCode = false;
@@ -559,38 +413,21 @@ function mousePressed() {
   otherdeskCode = false;
   other2Code = false;
   binaryKey = false;
-  hexKey = false;
-
-  login026 = false;
-  login050 = false;
-  login087 = false;
-  login131 = false;
-  login209 = false;
-  login259 = false;
-
-  clipWallDesk = false;
-  clipShelf2 = false;
-  clipOppo = false;
   clipBoss = false;
 
   errorColor = false;
   errorNumber = false;
   errorLetter = false;
-  errorMess = false;
-  errorText = "";
 
   error1 = false;
   error2 = false;
   error3 = false;
   can = false;
+  basicMess = false;
+  inputMess = false;
 
-  
   favoriteColor = false;
-  foundColorMessage = false;
-  
-  doorNoPuzzles = false;
-  doorColorDone = false;
-  
+
   if (current == newMaybe) {
     if (stringsInt >= strings.length) {
       starting = true;
@@ -612,44 +449,62 @@ function mousePressed() {
   }
 
   if (current == bossDesk && inArea(560, 735, 95, 235)) {
-    bossMessage = true;
+    basicText =
+      "Employee Encrypted Codes: 026-a=16,b=17  050-a=e,b=f  087-a=8,b=9  131-a=m,b=n  209-a=r,b=s  259-a=v,b=w  261-a=21,b=22";
+    basicMess = true;
   }
   if (current == left2Desks && inArea(665, 800, 175, 255)) {
     left1deskCode = true;
+    inputMess = true;
+    basicText = "Employee 087, Please Enter Password:";
   }
   if (current == leftDesk && inArea(610, 750, 255, 335)) {
     left2deskCode = true;
+    inputMess = true;
+    basicText = "Employee 209, Please Enter Password:";
   }
   if (current == wallDesks && inArea(800, 980, 185, 290)) {
     wall2deskCode = true;
+    inputMess = true;
+    basicText = "Employee 131, Please Enter Password:";
   }
   if (current == wallDesks && inArea(0, 200, 190, 290)) {
     wall1deskCode = true;
+    inputMess = true;
+    basicText = "Employee 026, Please Enter Password:";
   }
   if (current == othersideDesk && inArea(700, 820, 170, 245)) {
     otherdeskCode = true;
+    inputMess = true;
+    basicText = "Employee 050, Please Enter Password:";
   }
   if (current == oppoDesk && inArea(780, 970, 220, 325)) {
     other2Code = true;
+    inputMess = true;
+    basicText = "Employee 259, Please Enter Password:";
   }
   if (current == printer && inArea(562, 683, 437, 537)) {
     binaryKey = true;
   }
   if (current == right2 && inArea(780, 840, 222, 240)) {
-    hexKey = true;
+    null; //random papers idk hard to see
   }
-
   if (current == wallDesks && inArea(1365, 1500, 300, 355)) {
-    clipWallDesk = true;
+    basicText = "026 code: 22-7-16-19-20   050 code: gvyqf";
+    basicMess = true;
   }
   if (current == shelf2 && inArea(420, 550, 425, 490)) {
-    clipShelf2 = true;
+    basicText = "087 code: 23-25-12-26-26   131 code: oayyqzf";
+    basicMess = true;
   }
   if (current == bossDesk && inArea(990, 1090, 260, 325)) {
-    clipBoss = true;
+    basicText =
+      "Colors and their hex values: \nCopper: d86e10 \tMagenta: d8106e Green-cyan: 10d86e \nBright purple: 6e10d8 \nLime green: 6ed810";
+    basicMess = true;
   }
   if (current == oppoDesk && inArea(635, 725, 360, 430)) {
-    clipOppo = true;
+    basicText = "209 code: wziv   259 code: wvb   261 code: 26-21-3-6-15-12-25";
+    basicMess = true;
   }
 
   if (current == cabinet2 && inArea(480, 1080, 160, 575)) {
@@ -661,26 +516,39 @@ function mousePressed() {
   if (current == printer && inArea(970, 1400, 190, 660)) {
     errorLetter = true;
   }
-
   if (current == bossDesk && inArea(300, 520, 580, 700)) {
-    can = true;
+    basicMess=true;
+    basicText="HEX \n 8=8 9=9 10=a 11=b 12=c 13=d 14=e 15=f \n example: 2c-> (2*16)+(c->12) = 32 + 12 = 44"
   }
-  if (current == printer && (inArea(217, 500, 324, 515) || inArea(735, 940, 317, 500))) {
-    setText();
-    text("What is the boss's favorite color?" + entered, 400, 400, 600, 200);
+  if (
+    current == printer &&
+    (inArea(217, 500, 324, 515) || inArea(735, 940, 317, 500))
+  ) {
+    inputMess=true;
+    basicText="What is the boss's favorite color?"
     favoriteColor = true;
   }
   if (current == doors && !foundColor && inArea(600, 825, 117, 366)) {
-    doorNoPuzzles = true;
+    basicText =
+      "I can't leave yet, I have to finish up my work and print that flyer for the boss.";
+    basicMess = true;
   }
   if (current == doors && foundColor && inArea(600, 825, 117, 366)) {
-    doorColorDone = true;
+    basicText = "I can't leave yet, I have to finish my work first";
+    basicMess = true;
   }
   if (current == cabinet2 && !foundColor && inArea(1250, 1425, 90, 700)) {
-    doorNoPuzzles = true;
+    basicText =
+      "I can't leave yet, I have to finish up my work and print that flyer for the boss.";
+    basicMess = true;
   }
   if (current == cabinet2 && foundColor && inArea(1250, 1425, 90, 700)) {
-    doorColorDone = true;
+    basicText = "I can't leave yet, I have to finish my work first";
+    basicMess = true;
+  }
+  if (current == clock && inArea(600, 850, 200, 375)) {
+    basicMess = true;
+    basicText = "It's 11 past 10";
   }
 
   if (current.left != null) {
@@ -741,122 +609,136 @@ function keyReleased() {
       error3 = true;
     }
 
-    if (!intro) {
-      if (entered == "HELP") {
-      }
-      //make a screen for hints?
-    }
     if (left2deskCode && entered == "fire") {
-      login209 = true;
+      inputMess = false; // employee 209
+      basicText =
+        "The new employee 261 is terrible. They don't even know Binary Code 1  Digit 1: 01000100";
+      basicMess = true;
     }
     if (left1deskCode && entered == "press") {
-      login087 = true;
+      inputMess = false; // employee 087
+      basicText =
+        "The green value of the boss's favorite color is equal to the number of coffee mugs in the office cubed.";
+      basicMess = true; //6^3=216=d8
     }
     if (wall2deskCode && entered == "comment") {
-      login131 = true;
+      inputMess = false; // employee 131
+      basicText =
+        "The red value for the boss's favorite color is the number of red chairs in the office times the number of red couches.";
+      basicMess = true; //5*2=10
     }
     if (wall1deskCode && entered == "grade") {
-      login026 = true;
+      inputMess = false; // employee 026
+      basicText =
+        "In order to find the blue value of the boss's favorite color take the time and multiply the hours times the minutes: 4D";
+      basicMess = true;
     }
     if (otherdeskCode && entered == "crumb") {
-      login050 = true;
+      inputMess = false; // employee 050
+      basicText = "blah blah flavor text Insert binary Digit 2: 01000110";
+      basicMess = true;
     }
     if (other2Code && entered == "bag") {
-      login259 = true;
+      inputMess = false; // employee 259
+      basicText = "blah blah flavor text Insert binary Digit 3: 01010011";
+      basicMess = true;
     }
     if (errorColor) {
       if (entered == "Blue" || entered == "blue") {
         //6
-        errorMess = true;
-        errorText = "Coffee Cups Number";
+        basicMess = true;
+        basicText = "Water Bottles Number";
         errorColor = false;
       }
       if (entered == "Red" || entered == "red") {
         //22
-        errorMess = true;
-        errorText = "Potted Plants Number";
+        basicMess = true;
+        basicText = "Potted Plants Number";
         errorColor = false;
       }
       if (entered == "Yellow" || entered == "yellow") {
         //8
-        errorMess = true;
-        errorText = "Black Binders Number";
+        basicMess = true;
+        basicText = "Black Binders Number";
         errorColor = false;
       }
       if (entered == "Green" || entered == "green") {
         //30
-        errorMess = true;
-        errorText = "Error Yellow + Error Red";
+        basicMess = true;
+        basicText = "Error Yellow + Error Red";
         errorColor = false;
       }
       if (entered == "Purple" || entered == "purple") {
         //7
-        errorMess = true;
-        errorText = "Red Binders Number";
+        basicMess = true;
+        basicText = "Red Binders Number";
         errorColor = false;
       }
     }
     if (errorNumber) {
       if (entered == "1") {
         //261
-        errorMess = true;
-        errorText = "Employee #";
+        basicMess = true;
+        basicText = "Employee #";
         errorNumber = false;
       }
       if (entered == "2") {
         //??
-        errorMess = true;
-        errorText = "Binary digit 1";
+        basicMess = true;
+        basicText = "Binary digit 1";
         errorNumber = false;
       }
       if (entered == "4") {
         //??
-        errorMess = true;
-        errorText = "Hex digit 2";
+        basicMess = true;
+        basicText = "Hex digit 2";
         errorNumber = false;
       }
       if (entered == "9") {
         //??
-        errorMess = true;
-        errorText = "Hex digit 1 and 3";
+        basicMess = true;
+        basicText = "Hex digit 1 and 3";
         errorNumber = false;
       }
     }
     if (errorLetter) {
       if (entered == "A" || entered == "a") {
         //10
-        errorMess = true;
-        errorText = "Hour";
+        basicMess = true;
+        basicText = "Hour";
         errorLetter = false;
       }
       if (entered == "B" || entered == "b") {
         //11
-        errorMess = true;
-        errorText = "Minute";
+        basicMess = true;
+        basicText = "Minute";
         errorLetter = false;
       }
       if (entered == "F" || entered == "f") {
         //??
-        errorMess = true;
-        errorText = "Hex 2";
+        basicMess = true;
+        basicText = "Hex 2";
         errorLetter = false;
       }
       if (entered == "M" || entered == "m") {
         //??
-        errorMess = true;
-        errorText = "Binary 2 and 3";
+        basicMess = true;
+        basicText = "Binary 2 and 3";
         errorLetter = false;
       }
       if (entered == "T" || entered == "t") {
         //77
-        errorMess = true;
-        errorText = "Error B * Error Purple";
+        basicMess = true;
+        basicText = "Error B * Error Purple";
         errorLetter = false;
       }
     }
     if (favoriteColor && entered.toUpperCase() == "GREEN-CYAN") {
       foundColor = true;
-      foundColorMessage = true;
+      inputMess= false;
+      basicMess = true;
+      basicText =
+        "Oh yeah that's right! I guess I don't have to worry about that anymore.";
     }
   }
 }
