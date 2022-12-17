@@ -56,15 +56,16 @@ let stringsInt = 0;
 let currentString = "";
 let stringsInt2 = 0;
 let currentString2 = "";
-let strings2=["That's it. \n",
-              " You finished the job. \n", 
-              " Your boss might be mad it took you so long. \n", 
-              " You don't belong here. Everyone else finished their work with ease. \n",
-              " NO",
-              ",you did it. The others are used to it here, but that doesn't mean they're better. \n",
-              " Growing and learning is a process and sometimes a struggle. \n \n",
-              " Thank you for playing. We hope you enjoyed your time. You did it WOOOOO!"
-             ]
+let strings2 = [
+  "That's it. \n",
+  " You finished the job. \n",
+  " Your boss might be mad it took you so long. \n",
+  " You don't belong here. Everyone else finished their work with ease. \n",
+  " NO",
+  ",you did it. The others are used to it here, but that doesn't mean they're better. \n",
+  " Growing and learning is a process and sometimes a struggle. \n \n",
+  " Thank you for playing. We hope you enjoyed your time. You did it WOOOOO!",
+];
 
 let errorColor = false;
 let errorNumber = false;
@@ -77,7 +78,7 @@ let foundColor = false;
 let favoriteColor = false;
 let basicMess = false;
 let basicText = "";
-let printTime=false;
+let printTime = false;
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -109,9 +110,8 @@ function setup() {
   createCanvas(1500, 700);
   testtext = false;
   starting = true;
-  foundColor = true;
   createStory();
-  current = doors;//newMaybe or start
+  current = newMaybe; //newMaybe or start
 }
 function getArea(a, b, c) {
   return abs(
@@ -248,12 +248,12 @@ function setText() {
   fill(0);
   textSize(30);
 }
-function gameBox(x,n){
-  basicMess=true;
-  basicText=x;
-  answer=false;
-  if(n!=null){
-    answer=true;
+function gameBox(x, n) {
+  basicMess = true;
+  basicText = x;
+  answer = false;
+  if (n != null) {
+    answer = true;
   }
 }
 
@@ -270,44 +270,56 @@ function draw() {
     fill(255);
     text(currentString2, 40, 35, 1200, 700);
   }
-  
+
   if (current == intro) {
     if (starting) {
-      gameBox("This is a point and click style adventure where you work in an office trying to finish a project while everyone has already left. We recommend grabbing some paper. Try clicking in his box to start.");
+      gameBox(
+        "This is a point and click style adventure where you work in an office trying to finish a project while everyone has already left. We recommend grabbing some paper. Try clicking in his box to start."
+      );
     }
     if (start2) {
-      gameBox("Great! All text and dailogue will appear in a box like this. In some cases you can type to interact with the world and it will appear here. Please type Hello then hit enter: " +
-          contents);
+      gameBox(
+        "Great! All text and dailogue will appear in a box like this. In some cases you can type to interact with the world and it will appear here. Please type Hello then hit enter: " +
+          contents
+      );
     }
     if (start3) {
-      gameBox("Great! There will be Blue Arrows to click on to move around the office. You will also need to click around to interact with objects. To start the game click on the computer monitor. Your first task is to login.");
+      gameBox(
+        "Great! There will be Blue Arrows to click on to move around the office. You will also need to click around to interact with objects. To start the game click on the computer monitor. Your first task is to login."
+      );
     }
   }
 
   if (testtext && !login) {
-    gameBox("Employee 261, Please Enter Password: \n"+contents);
+    gameBox("Employee 261, Please Enter Password: \n" + contents);
   }
   if (login) {
-    gameBox("Login Success \n Machine Error Code Blue1A Please Fix \n "+contents);
+    gameBox(
+      "Login Success \n Machine Error Code Blue1A Please Fix \n " + contents
+    );
   }
   if (error1) {
-    gameBox("Error 1 Resolved \n Machine Error Code Yellow2F Please Fix \n"+contents);
+    gameBox(
+      "Error 1 Resolved \n Machine Error Code Yellow2F Please Fix \n" + contents
+    );
   }
   if (error2) {
-    gameBox("Error 2 Resolved \n Machine Error Code Green9T Please Fix \n"+contents);
+    gameBox(
+      "Error 2 Resolved \n Machine Error Code Green9T Please Fix \n" + contents
+    );
   }
   if (error3) {
-    printTime=true;
-    gameBox("Error 3 Resolved: All Errors Resolved \n Please Fix Issue at Printer")
-
+    printTime = true;
+    gameBox(
+      "Error 3 Resolved: All Errors Resolved \n Please Fix Issue at Printer"
+    );
   }
   if (basicMess) {
     setText();
-    if(answer){
-    text(basicText+"\n"+contents,400,350,600,200);
-    }
-    else{
-      text(basicText,400,350,600,200);
+    if (answer) {
+      text(basicText + "\n" + contents, 400, 350, 600, 200);
+    } else {
+      text(basicText, 400, 350, 600, 200);
     }
   }
   if (binaryKey) {
@@ -413,83 +425,97 @@ function mousePressed() {
   }
 
   if (current == bossDesk && inArea(560, 735, 95, 235)) {
-    gameBox("Employee Encrypted Codes: 026-a=16,b=17  050-a=e,b=f  087-a=8,b=9  131-a=m,b=n  209-a=r,b=s  259-a=v,b=w  261-a=21,b=22")
+    gameBox(
+      "Employee Encrypted Codes: 026-a=16,b=17  050-a=e,b=f  087-a=8,b=9  131-a=m,b=n  209-a=r,b=s  259-a=v,b=w  261-a=21,b=22"
+    );
   }
   if (current == left2Desks && inArea(665, 800, 175, 255)) {
     left1deskCode = true;
-    gameBox("Employee 087, Please Enter Password:",1);
+    gameBox("Employee 087, Please Enter Password:", 1);
   }
   if (current == leftDesk && inArea(610, 750, 255, 335)) {
     left2deskCode = true;
-    gameBox("Employee 209, Please Enter Password:",1);
+    gameBox("Employee 209, Please Enter Password:", 1);
   }
   if (current == wallDesks && inArea(800, 980, 185, 290)) {
     wall2deskCode = true;
-    gameBox("Employee 131, Please Enter Password:",1);
+    gameBox("Employee 131, Please Enter Password:", 1);
   }
   if (current == wallDesks && inArea(0, 200, 190, 290)) {
     wall1deskCode = true;
-    gameBox("Employee 026, Please Enter Password:",1);
+    gameBox("Employee 026, Please Enter Password:", 1);
   }
   if (current == othersideDesk && inArea(700, 820, 170, 245)) {
     otherdeskCode = true;
-    gameBox("Employee 050, Please Enter Password:",1);
+    gameBox("Employee 050, Please Enter Password:", 1);
   }
   if (current == oppoDesk && inArea(780, 970, 220, 325)) {
     other2Code = true;
-    gameBox("Employee 259, Please Enter Password:",1);
+    gameBox("Employee 259, Please Enter Password:", 1);
   }
   if (current == printer && inArea(562, 683, 437, 537)) {
     binaryKey = true;
   }
   if (current == wallDesks && inArea(1365, 1500, 300, 355)) {
-    gameBox("026 code: 22-7-16-19-20   050 code: gvyqf")
+    gameBox("026 code: 22-7-16-19-20   050 code: gvyqf");
   }
   if (current == shelf2 && inArea(420, 550, 425, 490)) {
-    gameBox("087 code: 23-25-12-26-26   131 code: oayyqzf")
+    gameBox("087 code: 23-25-12-26-26   131 code: oayyqzf");
   }
   if (current == bossDesk && inArea(990, 1090, 260, 325)) {
-    gameBox("Colors and their hex values: \nCopper: d86e10 \tMagenta: d8106e Green-cyan: 10d86e \nBright purple: 6e10d8 \nLime green: 6ed810")
+    gameBox(
+      "Colors and their hex values: \nCopper: d86e10 \tMagenta: d8106e Green-cyan: 10d86e \nBright purple: 6e10d8 \nLime green: 6ed810"
+    );
   }
   if (current == oppoDesk && inArea(635, 725, 360, 430)) {
-    gameBox("209 code: wziv   259 code: wvb   261 code: 26-21-3-6-15-12-25")
+    gameBox("209 code: wziv   259 code: wvb   261 code: 26-21-3-6-15-12-25");
   }
   if (current == cabinet2 && inArea(480, 1080, 160, 575)) {
     errorNumber = true;
-    gameBox("What number error do you have?",1);
+    gameBox("What number error do you have?", 1);
   }
   if (current == cabinet1 && inArea(215, 955, 200, 590)) {
     errorColor = true;
-    gameBox("What color error do you have?",1);
+    gameBox("What color error do you have?", 1);
   }
   if (current == printer && inArea(970, 1400, 190, 660)) {
     errorLetter = true;
-    gameBox("What letter error do you have?",1);
+    gameBox("What letter error do you have?", 1);
   }
   if (current == bossDesk && inArea(300, 520, 580, 700)) {
-    gameBox("HEX- only 2 digits at a time \n 8=8 9=9 10=a 11=b 12=c 13=d 14=e 15=f \n example: 2c04 or 2c4-> (2*16)+(c->12) and (0*16)+(1*4)= 32+12 and 0+4 = 44 and 4 or just 444")
+    gameBox(
+      "HEX- only 2 digits at a time \n 8=8 9=9 10=a 11=b 12=c 13=d 14=e 15=f \n example: 2c04 or 2c4-> (2*16)+(c->12) and (0*16)+(1*4)= 32+12 and 0+4 = 44 and 4 or just 444"
+    );
   }
   if (
-    current == printer && printTime &&
+    current == printer &&
+    printTime &&
     (inArea(217, 500, 324, 515) || inArea(735, 940, 317, 500))
   ) {
-    gameBox("To fix printer please answer: What is the boss's favorite color?",1);
+    gameBox(
+      "To fix printer please answer: What is the boss's favorite color?",
+      1
+    );
     favoriteColor = true;
   }
   if (current == doors && !foundColor && inArea(600, 825, 117, 366)) {
-    gameBox("I can't leave yet, I have to finish up my work and print that flyer for the boss.")
+    gameBox(
+      "I can't leave yet, I have to finish up my work and print that flyer for the boss."
+    );
   }
   if (current == doors && foundColor && inArea(600, 825, 117, 366)) {
-    current=ending;
+    current = ending;
   }
   if (current == cabinet2 && !foundColor && inArea(1250, 1425, 90, 700)) {
-    gameBox("I can't leave yet, I have to finish up my work and print that flyer for the boss.")
+    gameBox(
+      "I can't leave yet, I have to finish up my work and print that flyer for the boss."
+    );
   }
   if (current == cabinet2 && foundColor && inArea(1250, 1425, 90, 700)) {
-    current=ending;
+    current = ending;
   }
   if (current == clock && inArea(600, 850, 200, 375)) {
-    gameBox("It's 11 past 10")
+    gameBox("It's 11 past 10");
   }
 
   if (current.left != null) {
@@ -550,103 +576,121 @@ function keyReleased() {
       error3 = true;
     }
 
-    if (left2deskCode && entered == "fire") {// employee 209
-      gameBox("The new employee 261 is terrible. They barely even know binary or how hex colors work. 01101100 01101111 01101100")
+    if (left2deskCode && entered == "fire") {
+      // employee 209
+      gameBox(
+        "The new employee 261 is terrible. They barely even know binary or how hex colors work. 01101100 01101111 01101100"
+      );
     }
-    if (left1deskCode && entered == "press") { // employee 087
-      gameBox("The green value of the boss's favorite color is equal to the number of coffee mugs in the office cubed.")
+    if (left1deskCode && entered == "press") {
+      // employee 087
+      gameBox(
+        "The green value of the boss's favorite color is equal to the number of coffee mugs in the office cubed."
+      );
     }
-    if (wall2deskCode && entered == "comment") {// employee 131
-      gameBox(" The red value for the boss's favorite color is the number of red chairs in the office plus all binders on his desk all multiplied by the number of red couches.")
+    if (wall2deskCode && entered == "comment") {
+      // employee 131
+      gameBox(
+        " The red value for the boss's favorite color is the number of red chairs in the office plus all binders on his desk all multiplied by the number of red couches."
+      );
     }
-    if (wall1deskCode && entered == "grade") {// employee 026
-      gameBox("In order to find the blue value of the boss's favorite color take the time and times the time by the other time in time")
+    if (wall1deskCode && entered == "grade") {
+      // employee 026
+      gameBox(
+        "In order to find the blue value of the boss's favorite color take the time and times the time by the other time in time"
+      );
     }
-    if (otherdeskCode && entered == "crumb") {// employee 050
-      gameBox("I can't let anyone know but I'm stuck. I have to covert 91 and 10 into hex but I'm terrible at it.")
+    if (otherdeskCode && entered == "crumb") {
+      // employee 050
+      gameBox(
+        "I can't let anyone know but I'm stuck. I have to covert 91 and 10 into hex but I'm terrible at it."
+      );
     }
-    if (other2Code && entered == "bag") {// employee 259
-      gameBox("I hate this job but a least I'm not the newbie anymore. 01001101 01101001 01101110: 01110101 01110100 01100101")
+    if (other2Code && entered == "bag") {
+      // employee 259
+      gameBox(
+        "I hate this job but a least I'm not the newbie anymore. 01001101 01101001 01101110: 01110101 01110100 01100101"
+      );
     }
     if (errorColor) {
       if (entered == "Blue" || entered == "blue") {
         //6
-        gameBox("Water Bottles Number")
+        gameBox("Water Bottles Number");
         errorColor = false;
       }
       if (entered == "Red" || entered == "red") {
         //22
-        gameBox("Potted Plants Number")
+        gameBox("Potted Plants Number");
         errorColor = false;
       }
       if (entered == "Yellow" || entered == "yellow") {
         //8
-        gameBox("Black Binders Number")
+        gameBox("Black Binders Number");
         errorColor = false;
       }
       if (entered == "Green" || entered == "green") {
         //30
-        gameBox("Error Yellow + Error Red")
+        gameBox("Error Yellow + Error Red");
         errorColor = false;
       }
       if (entered == "Purple" || entered == "purple") {
         //7
-        gameBox("Red Binders Number")
+        gameBox("Red Binders Number");
         errorColor = false;
       }
     }
     if (errorNumber) {
       if (entered == "1") {
         //261
-        gameBox("Employee #")
+        gameBox("Employee #");
         errorNumber = false;
       }
       if (entered == "2") {
         //RGB
-        gameBox("Employee 209 Binary")
+        gameBox("Employee 209 Binary");
         errorNumber = false;
       }
       if (entered == "4") {
         //5
-        gameBox("Blue Binders Number")
+        gameBox("Blue Binders Number");
         errorNumber = false;
       }
       if (entered == "9") {
         //??
-        gameBox("Error 4 and Error M")
+        gameBox("Error 4 and Error M");
         errorNumber = false;
       }
     }
     if (errorLetter) {
       if (entered == "A" || entered == "a") {
         //10
-        gameBox("Hour")
+        gameBox("Hour");
         errorLetter = false;
       }
       if (entered == "B" || entered == "b") {
         //11
-        gameBox("01001101 01101001 01101110 01110101 01110100 01100101")
+        gameBox("01001101 01101001 01101110 01110101 01110100 01100101");
         errorLetter = false;
       }
       if (entered == "F" || entered == "f") {
         //91 and 10 turn into 5b and a
-        gameBox("Employee 050 Hex")
+        gameBox("Employee 050 Hex");
         errorLetter = false;
       }
       if (entered == "M" || entered == "m") {
         //hex: bad ba=187 d=13  18713
-        gameBox("Employee 259 Binary Hex")
+        gameBox("Employee 259 Binary Hex");
         errorLetter = false;
       }
       if (entered == "T" || entered == "t") {
         //77
-        gameBox("Error B * Error Purple")
+        gameBox("Error B * Error Purple");
         errorLetter = false;
       }
     }
     if (favoriteColor && entered.toUpperCase() == "GREEN-CYAN") {
       foundColor = true;
-      gameBox("Finally, I'm done I have to get out of this place!")
+      gameBox("Finally, I'm done I have to get out of this place!");
     }
   }
 }
