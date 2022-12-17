@@ -54,6 +54,9 @@ let strings = [
 ];
 let stringsInt = 0;
 let currentString = "";
+let stringsInt2 = 0;
+let currentString2 = "";
+let strings2=["you win wooooo"," insert text here about the game theme and conclude story"]
 
 let errorColor = false;
 let errorNumber = false;
@@ -61,13 +64,13 @@ let errorLetter = false;
 let error1 = false;
 let error2 = false;
 let error3 = false;
-let can = false;
 
 let foundColor = false;
 let favoriteColor = false;
 let basicMess = false;
 let inputMess = false;
 let basicText = "";
+let printTime=false;
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -100,7 +103,7 @@ function setup() {
   testtext = false;
   starting = true;
   createStory();
-  current = start;//newMaybe or start
+  current = newMaybe;//newMaybe or start
 }
 function getArea(a, b, c) {
   return abs(
@@ -246,6 +249,12 @@ function draw() {
     fill(255);
     text(currentString, 40, 35, 900, 700);
   }
+  if (current == ending) {
+    textSize(30);
+    fill(255);
+    text(currentString2, 40, 35, 900, 700);
+  }
+  
   if (current == intro) {
     fill(255);
     rect(400, 350, 600, 200);
@@ -253,7 +262,7 @@ function draw() {
     fill(0);
     if (starting) {
       text(
-        "This is a point and click style adventure where you work in an office trying to finish a project while everyone has already left. Try clicking in his box to continue.",
+        "This is a point and click style adventure where you work in an office trying to finish a project while everyone has already left. We recommend grabbing some paper. Try clicking in his box to start.",
         400,
         350,
         600,
@@ -275,7 +284,7 @@ function draw() {
       fill(0);
       //rect(400, 350, 600, 200);
       text(
-        "Great! There will be Blue Arrows to click on to move around the office. You will also need to click around to interact with objects. To start the game click on the computer monitor. Your first task is to login",
+        "Great! There will be Blue Arrows to click on to move around the office. You will also need to click around to interact with objects. To start the game click on the computer monitor. Your first task is to login.",
         400,
         350,
         600,
@@ -311,9 +320,10 @@ function draw() {
   }
   if (error3) {
     setText();
+    printTime=true;
     text("Error 3 Resolved: All Errors Resolved", 400, 350, 600, 200);
     text(
-      "Attention Employee 261 you have taken to long to resolve all issues. Please vacate the building immedietaly and await further contant. Goodbye",
+      "Please Fix Issue at Printer",
       400,
       400,
       600,
@@ -327,7 +337,7 @@ function draw() {
   if (inputMess) {
     setText();
     text(basicText, 400, 350, 600, 200);
-    text(contents, 400, 400, 600, 200);
+    text(contents, 400, 450, 600, 200);
   }
   if (binaryKey) {
     fill(255);
@@ -357,11 +367,6 @@ function draw() {
     setText();
     text("What letter error do you have?", 400, 350, 600, 200);
     text(contents, 400, 400, 600, 200);
-  }
-
-  if (can) {
-    setText();
-    text("wow trash", 400, 350, 600, 200);
   }
 
   if (current.left != null) {
@@ -422,7 +427,6 @@ function mousePressed() {
   error1 = false;
   error2 = false;
   error3 = false;
-  can = false;
   basicMess = false;
   inputMess = false;
 
@@ -435,6 +439,15 @@ function mousePressed() {
     }
     currentString += strings[stringsInt];
     stringsInt++;
+  }
+  if (current == ending) {
+    /*
+    if (stringsInt >= strings.length) {
+      starting = true;
+      current = intro;
+    }*/
+    currentString2 += strings2[stringsInt2];
+    stringsInt2++;
   }
   if (current == start && inArea(625, 835, 130, 250)) {
     testtext = true;
@@ -518,14 +531,14 @@ function mousePressed() {
   }
   if (current == bossDesk && inArea(300, 520, 580, 700)) {
     basicMess=true;
-    basicText="HEX \n 8=8 9=9 10=a 11=b 12=c 13=d 14=e 15=f \n example: 2c-> (2*16)+(c->12) = 32 + 12 = 44"
+    basicText="HEX- only 2 digits at a time \n 8=8 9=9 10=a 11=b 12=c 13=d 14=e 15=f \n example: 2c04 or 2c4-> (2*16)+(c->12) and (0*16)+(1*4)= 32+12 and 0+4 = 44 and 4 or just 444"
   }
   if (
-    current == printer &&
+    current == printer && printTime &&
     (inArea(217, 500, 324, 515) || inArea(735, 940, 317, 500))
   ) {
     inputMess=true;
-    basicText="What is the boss's favorite color?"
+    basicText="To fix printer please answer: What is the boss's favorite color?"
     favoriteColor = true;
   }
   if (current == doors && !foundColor && inArea(600, 825, 117, 366)) {
@@ -534,8 +547,7 @@ function mousePressed() {
     basicMess = true;
   }
   if (current == doors && foundColor && inArea(600, 825, 117, 366)) {
-    basicText = "I can't leave yet, I have to finish my work first";
-    basicMess = true;
+    current=ending;
   }
   if (current == cabinet2 && !foundColor && inArea(1250, 1425, 90, 700)) {
     basicText =
@@ -543,8 +555,7 @@ function mousePressed() {
     basicMess = true;
   }
   if (current == cabinet2 && foundColor && inArea(1250, 1425, 90, 700)) {
-    basicText = "I can't leave yet, I have to finish my work first";
-    basicMess = true;
+    current=ending;
   }
   if (current == clock && inArea(600, 850, 200, 375)) {
     basicMess = true;
@@ -600,11 +611,11 @@ function keyReleased() {
       login = false;
       error1 = true;
     }
-    if (error1 && entered == "TESTVAL1") {
+    if (error1 && entered.toUpperCase() == "8RGB5BA") {
       error1 = false;
       error2 = true;
     }
-    if (error2 && entered == "TESTVAL2") {
+    if (error2 && entered == "3051861377") {
       error2 = false;
       error3 = true;
     }
@@ -612,7 +623,7 @@ function keyReleased() {
     if (left2deskCode && entered == "fire") {
       inputMess = false; // employee 209
       basicText =
-        "The new employee 261 is terrible. They don't even know Binary Code 1  Digit 1: 01000100";
+        "The new employee 261 is terrible. They barely even know binary or how hex colors work. 01101100 01101111 01101100";
       basicMess = true;
     }
     if (left1deskCode && entered == "press") {
@@ -624,24 +635,24 @@ function keyReleased() {
     if (wall2deskCode && entered == "comment") {
       inputMess = false; // employee 131
       basicText =
-        "The red value for the boss's favorite color is the number of red chairs in the office times the number of red couches.";
-      basicMess = true; //5*2=10
+        " The red value for the boss's favorite color is the number of red chairs in the office plus binders on his desk all multiplied by the number of red couches.";
+      basicMess = true; //(5+3)*2=16 in hex is 10
     }
     if (wall1deskCode && entered == "grade") {
       inputMess = false; // employee 026
       basicText =
-        "In order to find the blue value of the boss's favorite color take the time and multiply the hours times the minutes: 4D";
-      basicMess = true;
+        "In order to find the blue value of the boss's favorite color take the time and times the time by the other time in time";
+      basicMess = true; //10*11=110=6e
     }
     if (otherdeskCode && entered == "crumb") {
       inputMess = false; // employee 050
-      basicText = "blah blah flavor text Insert binary Digit 2: 01000110";
+      basicText = "I can't let anyone know but I'm stuck. I have to covert 91 and 10 into hex but I'm terrible at it.";
       basicMess = true;
     }
     if (other2Code && entered == "bag") {
       inputMess = false; // employee 259
-      basicText = "blah blah flavor text Insert binary Digit 3: 01010011";
-      basicMess = true;
+      basicText = "I hate this job but a least I'm not the newbie anymore. 01001101 01101001 01101110: 01110101 01110100 01100101";
+      basicMess = true; //hex: bad
     }
     if (errorColor) {
       if (entered == "Blue" || entered == "blue") {
@@ -683,21 +694,21 @@ function keyReleased() {
         errorNumber = false;
       }
       if (entered == "2") {
-        //??
+        //RGB
         basicMess = true;
-        basicText = "Binary digit 1";
+        basicText = "Employee 209 Binary";
         errorNumber = false;
       }
       if (entered == "4") {
-        //??
+        //5
         basicMess = true;
-        basicText = "Hex digit 2";
+        basicText = "Blue Binders Number";
         errorNumber = false;
       }
       if (entered == "9") {
         //??
         basicMess = true;
-        basicText = "Hex digit 1 and 3";
+        basicText = "Error 4 and Error M";
         errorNumber = false;
       }
     }
@@ -711,19 +722,19 @@ function keyReleased() {
       if (entered == "B" || entered == "b") {
         //11
         basicMess = true;
-        basicText = "Minute";
+        basicText = "01001101 01101001 01101110 01110101 01110100 01100101";
         errorLetter = false;
       }
       if (entered == "F" || entered == "f") {
-        //??
+        //91 and 10 turn into 5b and a
         basicMess = true;
-        basicText = "Hex 2";
+        basicText = "Employee 050 Hex";
         errorLetter = false;
       }
       if (entered == "M" || entered == "m") {
-        //??
+        //hex: bad ba=187 d=13  18713
         basicMess = true;
-        basicText = "Binary 2 and 3";
+        basicText = "Employee 259 Binary Hex";
         errorLetter = false;
       }
       if (entered == "T" || entered == "t") {
@@ -738,7 +749,7 @@ function keyReleased() {
       inputMess= false;
       basicMess = true;
       basicText =
-        "Oh yeah that's right! I guess I don't have to worry about that anymore.";
+        "Finally, I'm done I have to get out of this place!";
     }
   }
 }
@@ -754,8 +765,8 @@ class Scene {
     this.doty = _doty;
   }
 }
-//start,left1,right1,shelf1,cabinet1,left2,leftDesk,left2Desks,wallDesks,clock,bossCorner,cabinet2,shelf2,bossDesk,loungeCorner,otherside1,othersideDesk,coffeeTable,lounge,door,printer,oppoDesk,otherside2,right2;
 function createStory() {
+  ending = new Scene(51, null, null, null, null, null, null);
   newMaybe = new Scene(51, null, null, null, null, null, null);
   intro = new Scene(image7, null, null, null, null, null, null);
   start = new Scene(image7, "left1", "right1", null, null, 240, 137);
