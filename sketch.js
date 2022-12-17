@@ -73,11 +73,17 @@ let errorNumber = false;
 let errorLetter = false;
 let errorMess = false;
 let errorText = "";
-let doorText = false;
 let error1 = false;
 let error2 = false;
 let error3 = false;
 let can = false;
+
+let foundColor = false;
+let favoriteColor = false;
+let foundColorMessage = false;
+
+let doorNoPuzzles = false;
+let doorColorDone = false;
 
 function preload() {
   image7 = loadImage("assets/start.png");
@@ -359,7 +365,8 @@ function draw() {
   }
   if (login087) {
     setText();
-    text("blah blah flavor text Insert Hex code 2 here", 400, 350, 600, 200);
+    text("The green value of the boss's favorite color is equal to the number of coffee mugs in the office cubed", 400, 350, 600, 200);
+    // 6^3 = 216
   }
   if (wall2deskCode && !login131) {
     setText();
@@ -368,7 +375,8 @@ function draw() {
   }
   if (login131) {
     setText();
-    text("blah blah flavor text Insert Hex code 1 here", 400, 350, 600, 200);
+    text("The red value for the boss's favorite color is the number of red chairs in the office times the number of red couches.", 400, 350, 600, 200);
+    // 5 * 2
   }
   if (otherdeskCode && !login050) {
     setText();
@@ -407,9 +415,9 @@ function draw() {
   }
   if (login026) {
     setText();
-    text("blah blah flavor text Insert hex 3 here", 400, 350, 600, 200);
+    text("In order to find the blue value of the boss's favorite color take the time and multiply the hours times the minutes: 4D", 400, 350, 600, 200);
   }
-
+// 10 * 11
   if (bossMessage) {
     setText();
     text(
@@ -436,7 +444,7 @@ function draw() {
   }
   if (hexKey) {
     setText();
-    text("insert hex converstion chart here", 400, 350, 600, 200);
+    text("Colors and their hex values: \nCopper: d86e10 \tMagenta: d8106e Green-cyan: 10d86e \nBright purple: 6e10d8 \nLime green: 6ed810", 400, 350, 600, 200);
   }
 
   if (clipWallDesk) {
@@ -478,15 +486,29 @@ function draw() {
     text(errorText, 400, 350, 600, 200);
   }
 
-  if (doorText) {
-    setText();
-    text("Doors", 400, 350, 600, 200);
-  }
   if (can) {
     setText();
     text("Can", 400, 350, 600, 200);
   }
 
+  if (favoriteColor) {
+    setText();
+    text("What is the boss's favorite color?\n\n", 400, 350, 600, 200);
+    text(contents, 400, 400, 600, 200);
+  }
+  if (foundColorMessage) {
+    setText();
+    text("Oh yeah that's right! I guess I don't have to worry about that anymore.", 400, 350, 600, 200);
+  }
+  if(doorNoPuzzles) {
+    setText();
+    text("I can't leave yet, I have to finish up my work and print that flyer for the boss.", 400, 350, 600, 200)
+  }
+  if(doorColorDone) {
+    setText();
+    text("I can't leave yet, I have to finish my work first", 400, 350, 600, 200)
+  }
+  
   if (current.left != null) {
     if (mouseInTriangle(20, 350, 70, 250, 70, 450)) {
       fill(255);
@@ -560,9 +582,15 @@ function mousePressed() {
   error1 = false;
   error2 = false;
   error3 = false;
-  doorText = false;
   can = false;
 
+  
+  favoriteColor = false;
+  foundColorMessage = false;
+  
+  doorNoPuzzles = false;
+  doorColorDone = false;
+  
   if (current == newMaybe) {
     if (stringsInt >= strings.length) {
       starting = true;
@@ -633,14 +661,26 @@ function mousePressed() {
   if (current == printer && inArea(970, 1400, 190, 660)) {
     errorLetter = true;
   }
-  if (current == doors && inArea(575, 850, 100, 370)) {
-    doorText = true;
-  }
-  if (current == cabinet2 && inArea(1250, 1425, 90, 700)) {
-    doorText = true;
-  }
+
   if (current == bossDesk && inArea(300, 520, 580, 700)) {
     can = true;
+  }
+  if (current == printer && (inArea(217, 500, 324, 515) || inArea(735, 940, 317, 500))) {
+    setText();
+    text("What is the boss's favorite color?" + entered, 400, 400, 600, 200);
+    favoriteColor = true;
+  }
+  if (current == doors && !foundColor && inArea(600, 825, 117, 366)) {
+    doorNoPuzzles = true;
+  }
+  if (current == doors && foundColor && inArea(600, 825, 117, 366)) {
+    doorColorDone = true;
+  }
+  if (current == cabinet2 && !foundColor && inArea(1250, 1425, 90, 700)) {
+    doorNoPuzzles = true;
+  }
+  if (current == cabinet2 && foundColor && inArea(1250, 1425, 90, 700)) {
+    doorColorDone = true;
   }
 
   if (current.left != null) {
@@ -814,6 +854,10 @@ function keyReleased() {
         errorLetter = false;
       }
     }
+    if (favoriteColor && entered.toUpperCase() == "GREEN-CYAN") {
+      foundColor = true;
+      foundColorMessage = true;
+    }
   }
 }
 class Scene {
@@ -838,7 +882,7 @@ function createStory() {
   right2 = new Scene(
     image55,
     "oppoDesk",
-    "printer",
+    null,
     "otherside2",
     "right1",
     266,
